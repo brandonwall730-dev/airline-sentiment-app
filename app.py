@@ -118,11 +118,25 @@ def img(fname):
 
 try:
     nb_model, svm_model, champ_model = load_models()
-    df, pred_df, metrics_df = load_data()
     MODELS_OK = True
 except Exception as e:
     MODELS_OK = False
+    nb_model = svm_model = champ_model = None
     MODEL_ERROR = str(e)
+
+try:
+    df, pred_df, metrics_df = load_data()
+    DATA_OK = True
+except Exception as e:
+    DATA_OK = False
+    DATA_ERROR = str(e)
+    df = pred_df = metrics_df = None
+
+if not DATA_OK:
+    st.error(f"Could not load data: {DATA_ERROR}")
+    st.info(f"Looking in: {UPLOADS}")
+    st.write("Files found:", os.listdir(UPLOADS))
+    st.stop()
 
 # ── Sidebar ────────────────────────────────────────────────────────────────────
 with st.sidebar:
