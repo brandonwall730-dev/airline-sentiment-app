@@ -97,7 +97,7 @@ button[data-baseweb="tab"] { font-weight: 600; font-size: 0.9rem; }
 
 # ── Load assets ────────────────────────────────────────────────────────────────
 BASE = os.path.dirname(__file__)
-UPLOADS = "."  # adjust if running locally
+UPLOADS = os.path.dirname(os.path.abspath(__file__))
 
 @st.cache_resource
 def load_models():
